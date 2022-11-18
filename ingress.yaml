@@ -2,19 +2,21 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: test-nginx-ingress
+  namespace: nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 10G
-    nginx.ingress.kubernetes.io/enable-underscores-in-headers: "true"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "1200"
-    # nginx.ingress.kubernetes.io/client-header-timeout: "300"
-    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "300"
-    nginx.ingress.kubernetes.io/proxy-buffer-size: 8k
+    nginx.org/proxy-body-size: 10G
+    nginx.org/enable-underscores-in-headers: "true"
+    nginx.org/proxy-read-timeout: "300"
+    nginx.org/proxy-send-timeout: "300"
+    nginx.org/proxy-connect-timeout: "1200"
+    # nginx.org/client-header-timeout: "300"
+    nginx.org/upstream-keepalive-timeout: "300"
+    nginx.org/proxy-buffer-size: 8k
 spec:
   ingressClassName: nginx
   rules:
-  - http:
+  - host: <hostname>
+    http:
       paths:
       - path: /
         pathType: Prefix
