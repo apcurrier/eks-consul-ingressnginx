@@ -1,4 +1,4 @@
-# Consul on EKS using nginx as ingress (transparent mode)
+# Consul on EKS using OSS nginx as ingress (transparent mode)
 
 ## requirements
 - an AWS account and a region that support EKS
@@ -35,10 +35,9 @@ kubectl apply -f denyall.yaml
 
 Deploy nginx ingress
 ```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm upgrade --install ingress-nginx ingress-nginx \                                                                                                    ─╯
-  --repo https://kubernetes.github.io/ingress-nginx \
-  --namespace ingress-nginx --create-namespace --values nginxingress-values.yaml
+git clone https://github.com/nginxinc/kubernetes-ingress.git --branch v2.4.1
+helm repo add nginx-stable https://helm.nginx.com/stable
+helm upgrade --install nginx-ingress nginx-stable/nginx-ingress --namespace=nginx-ingress --create-namespace --values ../../../eks-consul-ingressnginx/nginxingress-values.yaml
 ```
 
 Add configuration for Dialed Directly
@@ -64,13 +63,12 @@ kubectl apply -f allow-static-server.yaml
 
 To get the ingress endpoint provisioned in ELB:
 ```bash
-kubectl get service  -n ingress-nginx
+kubectl get service -n nginx-ingress
 ```
 
 Ensure you get back a `hello world` response:
 
 ```bash
-STATIC_SERVER_LB=$(kubectl get service  -n ingress-nginx ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")
+STATIC_SERVER_LB=$(kubectl get service -n nginx-ingress nginx-ingress-nginx-ingress -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")
 curl $STATIC_SERVER_LB
 ```
-
