@@ -69,6 +69,6 @@ kubectl get service -n nginx-ingress
 Ensure you get back a `hello world` response:
 
 ```bash
-STATIC_SERVER_LB=$(kubectl get service -n nginx-ingress nginx-ingress-nginx-ingress -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")
+STATIC_SERVER_LB=$(kubectl get service -n nginx-ingress nginx-ingress-controller -o jsonpath="{.status.loadBalancer.ingress[*].hostname}")
 curl $STATIC_SERVER_LB
 ```
