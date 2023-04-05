@@ -4,13 +4,12 @@ metadata:
   name: test-nginx-ingress
   namespace: nginx-ingress
   annotations:
-    nginx.org/proxy-body-size: 10G
-    nginx.org/enable-underscores-in-headers: "true"
-    nginx.org/proxy-read-timeout: "300"
-    nginx.org/proxy-send-timeout: "300"
-    nginx.org/proxy-connect-timeout: "1200"
-    # nginx.org/client-header-timeout: "300"
-    nginx.org/upstream-keepalive-timeout: "300"
+    nginx.org/client-max-body-size: "4m"
+    nginx.org/underscores-in-headers: "on"
+    nginx.org/proxy-read-timeout: "300s"
+    nginx.org/proxy-send-timeout: "300s"
+    nginx.org/proxy-connect-timeout: "300s"
+    nginx.org/keepalive: "300s"
     nginx.org/proxy-buffer-size: 8k
 spec:
   ingressClassName: nginx
