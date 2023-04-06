@@ -35,7 +35,7 @@ kubectl apply -f denyall.yaml
 
 Deploy nginx ingress
 ```bash
-git clone https://github.com/nginxinc/kubernetes-ingress.git --branch v2.4.1
+git clone https://github.com/nginxinc/kubernetes-ingress.git
 helm repo add nginx-stable https://helm.nginx.com/stable
 helm upgrade --install nginx-ingress nginx-stable/nginx-ingress --namespace=nginx-ingress --create-namespace --values ../../../eks-consul-ingressnginx/nginxingress-values.yaml
 ```
